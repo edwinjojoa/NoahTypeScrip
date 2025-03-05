@@ -8,6 +8,7 @@ import { login as loginService } from '@services/auth.service'
 import { Alert, Box, Button, Card, CardContent, CardMedia, FormControl, TextField, Typography } from '@mui/material'
 
 import cedeCentroCESMAG from './../../assets/img/SedeCentroUCESMAG.webp';
+import { AuthVistaGeneral } from './layout/AuthVistaGeneral'
 
 const Login = () => {
 
@@ -74,16 +75,20 @@ const Login = () => {
 
    return (
       <>
+      <AuthVistaGeneral titulo='Inicio de sesión' >
          <Box
-            id='login'
+            component="form"
+            onSubmit={handleSubmit}
+            noValidate
             sx={{
-               display: 'flex',
-               height: '100vh',
-               justifyContent: 'center',
-               alignItems: 'center',
-               flexDirection: 'column',
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              width: "400px",
+              gap: 2,  
             }}>
-
+{/* 
             <Card sx={{ display: 'flex' }}>
 
                <CardMedia
@@ -91,21 +96,10 @@ const Login = () => {
                   sx={{ width: { xs: 0, sm: 0, md: 300, lg: 400, xl: 400 } }}
                   image={cedeCentroCESMAG}
                   alt="Live from space album cover"
-               />
+               /> */}
 
-               <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                  <CardContent>
-                     <Box
-                        component="form"
-                        onSubmit={handleSubmit}
-                        sx={{
-                           display: 'flex',
-                           flexDirection: 'column',
-                           gap: 3,
-                           padding: 3
-                        }}
-                     >
-
+              
+{/* 
                         <Box>
                            <Typography variant='h5' mb={1}>
                               Sistema Académico
@@ -114,7 +108,7 @@ const Login = () => {
                            <Typography>
                               Bienvenido, por favor inicie sesión en su cuenta.
                            </Typography>
-                        </Box>
+                        </Box> */}
 
 
                         <FormControl>
@@ -189,13 +183,12 @@ const Login = () => {
                            
                         </FormControl>
 
-                     </Box>
-                  </CardContent>
-               </Box>
-            </Card>
+                   
+             
+            {/* </Card> */}
 
          </Box>
-
+         </AuthVistaGeneral>
       </>
    )
 }
