@@ -21,11 +21,11 @@ export const NonAuthLayout = ({ children }: NonAuthLayoutProps) => {
 
   return (
     <>
- <CssBaseline />
-      <Box sx={{ backgroundImage: `url(${backgroundImage})`, backgroundRepeat: 'no-repeat', backgroundSize: '100% 100%' }}>
-        <Container>
+     <CssBaseline />
+      <Box sx={{ dispaly: "flex" }}>
+       
           {children}
-        </Container>
+       
       </Box>
     </>
   )
