@@ -7,7 +7,10 @@ import { Profile } from '../pages/User'
 import { NotFound } from '../pages/Error'
 
 import { Details } from '../pages/Surveys'
-import { AspectosModal, AspectoView } from '../pages/evaDocente/gestionAspectos'
+import { AspectoView } from '../pages/evaDocente/gestionAspectos/AspectoView'
+import { PreguntaView } from '../pages/evaDocente/gestionPreguntas/PreguntaView'
+import { OpRespuestaView } from '../pages/evaDocente/gestionOpcRespuesta/OpRespuestaView'
+import { EncuestaView } from '../pages/evaDocente/gestionEncuestas'
 
 
 
@@ -20,7 +23,9 @@ const privateRoutes = [
   { path: '/', component: <Home /> },
   { path: '/home', component: <Home /> },
   { path: '/gestionEncuestas', component: <AspectoView /> },
-  // { path: '/modal', component: <AspectosModal/> },
+  { path: '/preguntas', component: <PreguntaView/> },
+  { path: '/opcione/respuestas', component: <OpRespuestaView/> }, 
+  { path: '/encuestas', component: <EncuestaView/> },
   { path: '/user/profile', component: <Profile /> },
   { path: '/survey/detail/:id/:name', component: <Details /> },
 ]

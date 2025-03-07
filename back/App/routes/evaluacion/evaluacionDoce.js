@@ -40,15 +40,14 @@ router.delete('/deleteAspecto/:id', eliminarAspectos);
 ///////////////////rutas PREGUNTAS//////////////////////////////////////////
 
 router.get('/listPregunta', getPreguntas);
-router.get('/listTipoPregunta', getTipoPreguntas);
-router.get('/buscarPorAspecto/:id', buscarpreguntaPorAaspecto);
+// router.get('/listTipoPregunta', getTipoPreguntas);
+// router.get('/buscarPorAspecto/:id', buscarpreguntaPorAaspecto);
 router.post('/createPregunta',
     [
         check('titulo', 'El titulo es obligatorio').not().isEmpty(),
         check('subtitulo', 'Ingresar el subtitulo').not().isEmpty(),
         check('imagen', 'no hay imagen'),
         check('valor', 'Debe de ingresar el valor'),
-        check('id_tipo_pregunta', 'Debe selecionar el tipo de pregunta'),
         validarCampos
     ],
      crearPreguntas);

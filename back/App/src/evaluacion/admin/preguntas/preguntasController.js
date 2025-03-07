@@ -1,6 +1,5 @@
 const {response} = require('express');
 const Pregunta= require('./preguntas.service');
-const Aspecto= require('../aspectos/aspectos.service');
 const Respuesta=require('../opcionesRespuestas/respuestas.service');
 
 const getPreguntas=async(req=response, res)=>{
@@ -30,19 +29,8 @@ const getTipoPreguntas=async(req=response, res)=>{
 const crearPreguntas=async(req, res)=>{
     try {
         const params= req.body;
-       
+        console.log('pregunta data', params);
         
-       
-        const tipopreid=params.id_tipo_pregunta;
-        ///se validara el id si existeen tipo pregunta
-       
-        const existetipo= await Pregunta.buscartipopregunta(tipopreid);
-      
-        if(!existetipo){
-            return res.status(404).json({msg:'tipo de pregunta no valido'})
-        }
-
-        console.log('Creando pregunta');
         const pregunta = await Pregunta.crearPregunta(params);
         console.log('Pregunta creada', pregunta);
         return res.status(200).json({ msg: 'preguntas', data: pregunta });
@@ -60,14 +48,9 @@ const actualizarPreguntas=async(req, res )=>{
     try {
         const params=req.body;
         const preguntaid=params.id;
-        const tipopreid=params.id_tipo_pregunta;
         const existePregunta=await Pregunta.buscarpregunta(preguntaid);
-        const existetipo= await Pregunta.buscartipopregunta(tipopreid);
         if(!existePregunta){
             return res.status(404).json({msg:'no existe pregunta '})
-        }
-        if(!existetipo){
-            return res.status(404).json({msg:'tipo de pregunta no valido'})
         }
         const result= await Pregunta.actualizarPregunta(params)
         return res.status(200).json({msg:'pregunta actualizada', data:result});
@@ -81,7 +64,7 @@ const actualizarPreguntas=async(req, res )=>{
 }
 const eliminarPreguntas = async(req, res  )=>{
     try {
-        console.log("Parámetros recibidos:", req.params);
+        //console.log("Parámetros recibidos:", req.params);
         const preguntaid = parseInt(req.params.id, 10);  // Convertir el ID a número
         if (isNaN(preguntaid) || preguntaid <= 0) {
           // Si no es un número válido, lanzamos un error
@@ -94,7 +77,7 @@ const eliminarPreguntas = async(req, res  )=>{
         }
         const preguntaUtilizada= await Respuesta.respuestaPorPregunta(preguntaid)
         if (preguntaUtilizada.length > 0) {
-            return res.status(400).json({msg:'no se puede elimira la pregunta, '});
+            return res.status(400).json({msg:'no se puede elimira la pregunta esta en cuestionario ',});
         }
         const result= await Pregunta.eliminarPregunta(preguntaid);
         return res.status(200).json({msg:'se elimino las preguntas',data:result})

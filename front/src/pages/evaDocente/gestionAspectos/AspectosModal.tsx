@@ -9,11 +9,11 @@ Modal.setAppElement('#root');
 interface AspectosModalProps {
   isOpen: boolean;
   closeModal: () => void;
-  refrescarAspectos: () => void;
+  refrescarDatos: () => void;
   activeEvent?: { id: number; nombre: string; descripcion: string };
 }
 
-export const AspectosModal: React.FC<AspectosModalProps> = ({ isOpen, closeModal, refrescarAspectos, activeEvent }) => {
+export const AspectosModal: React.FC<AspectosModalProps> = ({ isOpen, closeModal,  refrescarDatos, activeEvent }) => {
   const { startAspecto } = useAspectoStore();
   const [formValues, setFormValues] = useState({
     id: null as number | null,
@@ -64,7 +64,7 @@ export const AspectosModal: React.FC<AspectosModalProps> = ({ isOpen, closeModal
     setLoading(true);
     try {
       await startAspecto(formValues);
-      refrescarAspectos();
+      refrescarDatos();
       closeModal();
       setFormValues({
         id: null as number | null,

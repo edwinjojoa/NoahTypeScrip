@@ -28,7 +28,7 @@ async function lisAapectos(params) {
     const descripcion=params.descripcion;
     
     const query =`
-    select 
+    		select 
     id, 
     nombre, 
     descripcion, 
@@ -39,7 +39,7 @@ async function lisAapectos(params) {
     from eva.aspectos
     --where estado=true
     order by id  desc`;
-    
+      
     const result= await pool.query(query )
       console.log('respuesta',result.rows);
       return result.rows;

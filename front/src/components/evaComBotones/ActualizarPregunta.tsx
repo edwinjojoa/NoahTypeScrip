@@ -1,14 +1,14 @@
 import {  IconButton, Tooltip } from "@mui/material";
-import { Aspecto } from "../../pages/evaDocente/gestionAspectos/";
-import { AspectosModal } from "../../pages/evaDocente/gestionAspectos/AspectosModal";
+
 import { useModal } from "@hooks/useModal.hook";
 import BorderColorIcon from '@mui/icons-material/BorderColor';
+import { Preguntas, PreguntaModal } from "../../pages/evaDocente/gestionPreguntas";
 interface ActualizarBotonProps {
-  row: Aspecto;
+  row: Preguntas;
   refrescarDatos: () => void;
 }
 
-export const ActualizarBoton: React.FC<ActualizarBotonProps> = ({ row, refrescarDatos }) => {
+export const ActualizarPregunta: React.FC<ActualizarBotonProps> = ({ row, refrescarDatos }) => {
   const { isOpen, openModal, closeModal } = useModal();
 
   return (
@@ -18,11 +18,11 @@ export const ActualizarBoton: React.FC<ActualizarBotonProps> = ({ row, refrescar
                 <BorderColorIcon/>  
                 </IconButton>
               </Tooltip>
-              <AspectosModal
+              <PreguntaModal
             isOpen={isOpen}
             closeModal={closeModal}
             refrescarDatos={refrescarDatos} // Cambiar refrescarAspectos por refrescarDatos
-            activeEvent={row}
+            preguntaEvent={row}
           />
     </>
   );
