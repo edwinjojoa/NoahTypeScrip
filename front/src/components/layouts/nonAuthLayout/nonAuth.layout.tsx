@@ -1,15 +1,13 @@
-
 import { Box,  CssBaseline } from '@mui/material'
 import { ReactNode, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
-import SideBar from './menu/SiderBar'
 
 
-interface MenusGeneralSistProps {
+interface NonAuthLayoutProps {
   children: ReactNode
 }
 
-export const MenusGeneralSist = ({ children }: MenusGeneralSistProps) => {
+export const NonAuthLayout = ({ children }: NonAuthLayoutProps) => {
   let location = useLocation()
 
   const capitalizaFirstLetter = (string: string) => {
@@ -24,7 +22,6 @@ export const MenusGeneralSist = ({ children }: MenusGeneralSistProps) => {
   return (
     <>
      <CssBaseline />
-     <SideBar/>
       <Box sx={{ dispaly: "flex" }}>
        
           {children}

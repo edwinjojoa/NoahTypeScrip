@@ -22,10 +22,9 @@ export const DefaultLayout = ({ children }: DefaultLayoutProps) => {
     <>
       <CssBaseline />
       <Box sx={{ display: 'flex' }}>
-        {/* <Container maxWidth="lg" sx={{ mt: 8 }}> */}
-        
+        <Container maxWidth="lg" sx={{ mt: 8 }}>
           {children}
-        {/* </Container> */}
+        </Container>
       </Box>
     </>
   )
