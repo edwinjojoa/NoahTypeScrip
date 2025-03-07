@@ -11,7 +11,7 @@ export const useAspectoStore = () => {
   //las promesas que llega de la interface que envia el arreglo aspecto y lo envia a aspectoView para listar 
      const listarAspectos=async(): Promise<Aspecto[]> =>{
         try {
-          const {data} = await axios.get<IntercefeAspectos> (`${Config.urlBase}/evaDocente/listAspecto`) ; // Llamada a la API correcta
+          const {data} = await axios.get<IntercefeAspectos>(`${Config.urlBase}/evaDocente/listAspecto`) ; // Llamada a la API correcta
           console.table(data.data); 
           return data.data;    
         } catch (error) {

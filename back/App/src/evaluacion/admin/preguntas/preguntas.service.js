@@ -2,15 +2,49 @@ const pool = require('../../../../../database/connexion');
 
 async function crearPregunta(params) {
     try {
-        const{titulo, subtitulo, imagen, valor,  id_tipo_pregunta }=params;
-        const query='insert into eva.preguntas(titulo, subtitulo, imagen, valor,  id_tipo_pregunta,  estado) values ($1, $2, $3, $4, $5, true)';
-        const resultado= await pool.query(query, [titulo, subtitulo, imagen, valor, id_tipo_pregunta ]);
-        //console.log('respuesta', resultado.rows);
+        const{titulo, subtitulo, imagen, valor }=params;
+        const query=`insert into eva.preguntas(titulo, subtitulo, imagen, valor, estado)
+         values ($1, $2, $3, $4,  true)`;
+        const resultado= await pool.query(query, [titulo, subtitulo, imagen, valor ]);
+        console.log('respuesta', resultado.rows);
         return resultado.rows;  
     } catch (error) {
         console.log('error',error);
         throw error;
     }
+}
+
+async function listapregunta() {
+    try {
+        const query=`select 
+		id,
+		titulo,
+		subtitulo,
+		imagen,
+		valor,
+		CASE 
+        WHEN estado=true THEN 'Activo'
+        ELSE'Desactivado'END as estado
+        from eva.preguntas ORDER BY id DESC`;
+        const resultado = await pool.query(query);
+        return resultado.rows;   
+    } catch (error) {
+        console.log('error',error);
+    }  
+}
+
+async function listaTipoPregnta() {
+    try {
+      
+        const query=`select * from eva.tipo_preguntas`;
+        const resultado = await pool.query(query);
+        return resultado.rows;
+        
+    } catch (error) {
+        console.log('error',error);
+        return false;
+    }
+    
 }
 
 async function buscartipopregunta(tipopreid) {
@@ -32,7 +66,7 @@ async function buscartipopregunta(tipopreid) {
 async function buscarpregunta(preguntaid) {
     try {
         const id=preguntaid
-       // console.log('lleeega id pregunta', id);
+       console.log('lleeega id pregunta', id);
         const query=`select * from eva.preguntas where id=$1`;
         const resultado = await pool.query(query,[id]);
 console.log('llega el resultado de id pregunta ', resultado.rows);
@@ -43,51 +77,16 @@ return resultado.rows.length > 0 ;
         return false;
     }
 }
-async function listaTipoPregnta() {
-    try {
-      
-        const query=`select * from eva.tipo_preguntas`;
-        const resultado = await pool.query(query);
-        return resultado.rows;
-        
-    } catch (error) {
-        console.log('error',error);
-        return false;
-    }
-    
-}
 
-async function listapregunta() {
-    try {
-        const query=`select pg.id,
-        pg.titulo as pregunta,
-        pg.subtitulo as descripcion,
-        pg.valor,
-        tp.nombre as TipoPregunta,
-				CASE 
-        WHEN pg.estado=true  THEN
-            'Activo'
-        ELSE
-            'Desactivado'
-        END as estado
-        from eva.preguntas pg
-        INNER JOIN eva.tipo_preguntas tp on pg.id_tipo_pregunta=tp.id 
-				where pg.estado=true
-				order by pg.id  desc`;
-        const resultado = await pool.query(query);
-        return resultado.rows;   
-    } catch (error) {
-        console.log('error',error);
-    }  
-}
+
+
 
 async function actualizarPregunta(params) {
     try {
-        const{id, titulo, subtitulo, imagen, valor,  id_tipo_pregunta}=params;
-        const query=`UPDATE eva.preguntas set titulo=$2, subtitulo=$3, imagen=$4, 
-        valor=$5,  id_tipo_pregunta=$6, estado=$7 where id=$1 RETURNING *`
-        const result=await pool.query(query,[id,titulo, subtitulo, imagen, valor, id_tipo_pregunta, true])
-       // console.log('respuesta', result.rows);
+        const{id, titulo, subtitulo, imagen, valor}=params;
+        const query=`UPDATE eva.preguntas set titulo=$2, subtitulo=$3, imagen=$4, valor=$5 where id=$1 RETURNING *`
+        const result=await pool.query(query,[id,titulo, subtitulo, imagen, valor ])
+       console.log('respuesta', result.rows);
         return result.rows;
     } catch (error) {
         console.log('error',error);

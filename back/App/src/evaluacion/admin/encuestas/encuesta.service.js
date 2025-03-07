@@ -19,7 +19,7 @@ async function listarEncuesta(params) {
             inner JOIN eva.tipo_encuestas te on te.id= e.id_tipo_encuesta 
             ORDER BY id desc`
         const result= await pool.query(query);
-        //console.log('respuesta', result.rows);
+        console.log('respuesta', result.rows);
         return result.rows
         
     } catch (error) {
@@ -85,32 +85,7 @@ async function actulizarEncuesta(params) {
         
     } 
 }
-async function listarEncuesta(params) {
-    try {
-        const query=`select 
-            e.id,
-            e.fecha_creacion,
-            e.nombre,
-			e.descripcion,
-            e.fecha_inicio,
-            e.fecha_fin,
-            te.nombre as tipo_encuestas,
-            e.id_periodo_academico as periodo_academico,
-		    e.llave_abreviatura,
-            CASE WHEN e.estado IS NULL THEN 'deshabilitada'
-            ELSE 'habilitada' END as estado
-            from  eva.encuestas e
-            LEFT JOIN  eva.encuestas_preguntas ep on e.id=ep.id_encuesta
-            inner JOIN eva.tipo_encuestas te on te.id= e.id_tipo_encuesta 
-            ORDER BY id desc`
-        const result= await pool.query(query);
-        //console.log('respuesta', result.rows);
-        return result.rows
-        
-    } catch (error) {
-        console.log('error', error); 
-    }
-}
+
 async function listarTipoEncuesta(params) {
     try {
         const query=`select * from eva.tipo_encuestas`

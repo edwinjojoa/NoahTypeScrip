@@ -1,16 +1,15 @@
-import {  IconButton, Tooltip } from "@mui/material";
-import { Aspecto } from "../../pages/evaDocente/gestionAspectos/";
-import { AspectosModal } from "../../pages/evaDocente/gestionAspectos/AspectosModal";
-import { useModal } from "@hooks/useModal.hook";
+import { IconButton, Tooltip } from "@mui/material"
 import BorderColorIcon from '@mui/icons-material/BorderColor';
+import { OpRespuesta } from "pages/evaDocente/gestionOpcRespuesta/OpRespuestaService/InterfaceOpRespuesta";
+import { useModal } from "@hooks/useModal.hook";
+import { OpRespuestaModal } from "../../pages/evaDocente/gestionOpcRespuesta";
+
 interface ActualizarBotonProps {
-  row: Aspecto;
+  row: OpRespuesta;
   refrescarDatos: () => void;
 }
-
-export const ActualizarBoton: React.FC<ActualizarBotonProps> = ({ row, refrescarDatos }) => {
+export const ActualizarOpRespuesta : React.FC<ActualizarBotonProps> = ({ row, refrescarDatos }) => {
   const { isOpen, openModal, closeModal } = useModal();
-
   return (
     <>
          <Tooltip title="actualizar"  color="primary" onClick={openModal}>
@@ -18,12 +17,12 @@ export const ActualizarBoton: React.FC<ActualizarBotonProps> = ({ row, refrescar
                 <BorderColorIcon/>  
                 </IconButton>
               </Tooltip>
-              <AspectosModal
+              <OpRespuestaModal
             isOpen={isOpen}
             closeModal={closeModal}
             refrescarDatos={refrescarDatos} // Cambiar refrescarAspectos por refrescarDatos
             activeEvent={row}
           />
     </>
-  );
-};
+  )
+}

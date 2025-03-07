@@ -3,13 +3,11 @@ const pool = require('../../../../../database/connexion');
 
 async function crearRespuesta(params) {
     try {
-        const {nombre, imagen, valor, id_pregunta, respuestaadd, estado}=params;
-      
-        
+        const {nombre, imagen, valor,  respuestaadd }=params;
         const query=(
-        `INSERT INTO eva.opciones_respuestas(nombre, imagen, valor, id_pregunta, respuestaadd, estado) 
-        VALUES ( $1, $2, $3, $4, $5, $6::boolean)`);
-        const result = await pool.query(query,[nombre, imagen, valor, id_pregunta, respuestaadd, estado]);
+        `INSERT INTO eva.opciones_respuestas(nombre, imagen, valor,  "respuestaAdd", estado) 
+        VALUES ( $1, $2, $3, $4, true)`);
+        const result = await pool.query(query,[nombre, imagen, valor,  respuestaadd]);
         console.log('respuesta', result.rows);
         
         return result.rows;
@@ -20,18 +18,18 @@ async function crearRespuesta(params) {
 }
 async function listarRespuestas(params) {
     try {
-        const query=`SELECT 
-                ore.id,			
-                ore.nombre as opciones_respuestas,
-                ore.imagen, 
-                ore.valor,
-                ore.respuestaadd,
+        const query=`	SELECT 
+                id,			
+                nombre,
+                imagen, 
+                valor,
+                "respuestaAdd",
 								CASE 
-	              WHEN ore.estado = true THEN 'Activo'
+	              WHEN estado = true THEN 'Activo'
 	              ELSE 'Desactivado'
 							 END as estado
-               from eva.opciones_respuestas ore
-               order by ore.id DESC`
+               from eva.opciones_respuestas 
+               order by id DESC`
         const result= await pool.query(query)
         //console.log('respuesta',result.rows);
         return result.rows;
@@ -60,26 +58,23 @@ async function actualizarRespuestas(params) {
     console.log('lllega datos de actualizaar ',params);
     
     try {
-        const{id, nombre, imagen, valor, id_pregunta, respuestaadd} =params;
-        const query='UPDATE eva.opciones_respuestas SET nombre=$2, imagen=$3, valor=$4, id_pregunta=$5, respuestaadd=$6 where id=$1 RETURNING *';
-        const result= await pool.query(query,[id, nombre, imagen, valor, id_pregunta, respuestaadd]);
+        const{id, nombre, imagen, valor,  respuestaadd} =params;
+        const query=`UPDATE eva.opciones_respuestas SET nombre=$2, imagen=$3, valor=$4,  "respuestaAdd"=$5 where id=$1 RETURNING *`;
+        const result= await pool.query(query,[id, nombre, imagen, valor,  respuestaadd]);
         console.log('respuesta',result.rows);
         
         return result.rows
         
     } catch (error) {
         console.log('error',error);
-    }
-    
+    } 
 }
 
 async function eliminarRespuesta(id) {
-    try {
-        
+    try { 
         const query='delete  from eva.opciones_respuestas WHERE id=$1';
         const result=await pool.query(query,[id]);
-       ///console.log('respuesta', result.rows);
-        
+       ///console.log('respuesta', result.rows); 
         return result.rows;
         
     } catch (error) {
@@ -90,7 +85,7 @@ async function eliminarRespuesta(id) {
 async function respuestaPorPregunta(preguntaid) {
     try {
         const id=preguntaid;
-        const query='SELECT * from eva.opciones_respuestas where id_pregunta=$1';
+        const query='SELECT * from eva.encuestas_preguntas where id_pregunta=$1';
         const result= await pool.query(query,[id]);
         console.log('repuesta', result.rows);
         return result.rows

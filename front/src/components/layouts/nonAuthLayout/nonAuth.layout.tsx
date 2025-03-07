@@ -1,7 +1,7 @@
-import { Box, Container, CssBaseline } from '@mui/material'
+import { Box,  CssBaseline } from '@mui/material'
 import { ReactNode, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
-import backgroundImage from './../../../assets/img/light-bg.jpg';
+
 
 interface NonAuthLayoutProps {
   children: ReactNode

@@ -20,15 +20,7 @@ const getRespuestas=async(req, res=response)=>{
 const crearRespuestas=async(req, res)=>{
     try {
         const params=req.body;
-        const preguntaid=params.id_pregunta;
-        console.log('idddd pregunta',preguntaid);
-        
-        const existeidPreg=await Pregunta.buscarpregunta(preguntaid);
         const result= await Respuesta.crearRespuesta(params);
-        if (!existeidPreg) {
-            return res.status(404).json({ mensaje: 'seleccionar la pregunta '});
-            
-        }
         return res.status(200).json({msg:'respuesta creada', data:result});
     } catch (error) {
         res.json({
@@ -43,17 +35,17 @@ const actualizarRespuestas=async(req, res)=>{
         const params=req.body;
        
         const idrespuesta=params.id; 
-        const preguntaid = Number(params.id_pregunta );
-        //console.log('params zulllyy',preguntaid);
-        if (!preguntaid) {
+        // const preguntaid = Number(params.id_pregunta );
+        // //console.log('params zulllyy',preguntaid);
+        // if (!preguntaid) {
             
-            return res.status(400).json({msg: "id_pregunta no es válido"});
-        }
+        //     return res.status(400).json({msg: "id_pregunta no es válido"});
+        // }
         const existeidRespu= await Respuesta.buscarRespuesta(idrespuesta);
-        const existeidPreg= await Pregunta.buscarpregunta(preguntaid);
+        // const existeidPreg= await Pregunta.buscarpregunta(preguntaid);
         //console.log('pregunta iddd',existeidPreg);
 
-        if(!existeidRespu && !existeidPreg){
+        if(!existeidRespu){
             return res.status(404).json({msg:'no existe Respuesta'})
             //return res.status(404).json({msg:'no existe pregunta para asociar'});
         }else {
@@ -75,12 +67,18 @@ const eliminarRespuestas=async(req, res)=>{
     try {
         
         const params=req.body;
-        const idrespuesta=params.id;      
+
+         
+        const id = parseInt(req.params.id, 10);
+        if (isNaN(id)) {
+            return res.status(400).json({ msg: "ID inválido" });
+        } 
+
       //  const preguntaid= params.id_preguntas
-        const existeidRespu= await Respuesta.buscarRespuesta(idrespuesta);
+        const existeidRespu= await Respuesta.buscarRespuesta(id);
        // const existeidPreg= await Pregunta.buscarpregunta(preguntaid);
         
-        const result=await Respuesta.eliminarRespuesta(idrespuesta);
+        const result=await Respuesta.eliminarRespuesta(id);
         if(!existeidRespu){
             return res.status(404).json({msg:'no existe Respuesta'})
         }  
