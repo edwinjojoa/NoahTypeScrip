@@ -16,4 +16,6 @@ export const login = async (nombre_usuario: string, clave_acceso: string) => {
     throw new Error(error.message)
   }
   return response.json()
-}
+};
+
+
