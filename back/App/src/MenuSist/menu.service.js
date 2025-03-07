@@ -3,7 +3,7 @@ async function listarMenuSit(params) {
     console.log('si llego ');
     
     try {
-      const query ='SELECT * from  zeus.fn_obtener_menu_usuario_noah(54990)';
+      const query ='select * from zeus.fn_obtener_menu_usuario(54990)';
       const result= await pool.query(query)
         console.log('respuesta',result.rows);
         return result.rows;

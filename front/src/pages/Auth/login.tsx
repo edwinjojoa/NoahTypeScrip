@@ -5,8 +5,9 @@ import { useForm } from '../../hooks'
 import { useAuth } from '@contexts/auth.context'
 import { login as loginService } from '@services/auth.service'
 
-import { Alert, Box, Button,  FormControl, TextField } from '@mui/material'
+import { Alert, Box, Button, Card, CardContent, CardMedia, FormControl, TextField, Typography } from '@mui/material'
 
+import cedeCentroCESMAG from './../../assets/img/SedeCentroUCESMAG.webp';
 import { AuthVistaGeneral } from './layout/AuthVistaGeneral'
 
 const Login = () => {
