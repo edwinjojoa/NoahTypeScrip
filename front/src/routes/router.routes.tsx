@@ -1,12 +1,9 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-
-import { publicRoutes, privateRoutes } from './config.routes'
-
-import { NonAuthLayout } from '@components/layouts/nonAuthLayout/nonAuth.layout'
-import { DefaultLayout } from '@components/layouts/defaultLayout/default.layout'
-
-import AppRoutePrivate from './private.routes'
-import AppRoutePublic from './public.routes'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { publicRoutes, privateRoutes } from './config.routes';
+import { DefaultLayout } from '@components/layouts/defaultLayout/default.layout';
+import { MenusGeneralSist } from '@components/layouts/shared/MenusGeneralSist.layout';
+import AppRoutePrivate from './private.routes';
+import AppRoutePublic from './public.routes';
 
 const AppRouter = () => {
   return (
@@ -14,12 +11,12 @@ const AppRouter = () => {
       <Routes>
         {publicRoutes.map((route, index) => (
           <Route key={`r-pub-${index}`} path={route.path} element={<AppRoutePublic />}>
-            <Route path="" element={<NonAuthLayout>{route.component}</NonAuthLayout>} />
+            <Route path="" element={<DefaultLayout>{route.component}</DefaultLayout>} />
           </Route>
         ))}
         {privateRoutes.map((route, index) => (
           <Route key={`r-prv-${index}`} path={route.path} element={<AppRoutePrivate />}>
-            <Route path="" element={<DefaultLayout>{route.component}</DefaultLayout>} />
+            <Route path="" element={<MenusGeneralSist>{route.component}</MenusGeneralSist>} />
           </Route>
         ))}
       </Routes>

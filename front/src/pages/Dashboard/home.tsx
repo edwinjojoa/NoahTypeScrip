@@ -27,9 +27,7 @@ const Home = () => {
       <button onClick={handleClick}>Salir</button>
       <button onClick={handleBack}>Atras</button>
       <button onClick={() => router.forward()}>Adelante</button>
-      <Button  component={Link} to="/preguntas">pregunta</Button>
-      <Button  component={Link} to="/opcione/respuestas">OpcionesRespuesta</Button>
-      <Button  component={Link} to="/encuestas">encuesta</Button>
+     
     </>
   )
 }
